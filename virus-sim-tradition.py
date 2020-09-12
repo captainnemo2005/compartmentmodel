@@ -8,19 +8,6 @@ import numpy as np
 import pickle
 
 
-# In[2]:
-
-
-pkl_file = open("Yerevan_population.pkl", "rb")
-population = pickle.load(pkl_file)
-pkl_file.close()
-
-pkl_file = open("Yerevan_OD_matrices.pkl", "rb")
-OD_matrices = pickle.load(pkl_file)
-pkl_file.close()
-
-OD_matrices.shape
-population.shape
 
 from collections import namedtuple
 
