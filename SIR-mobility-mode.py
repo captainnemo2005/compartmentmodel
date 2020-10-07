@@ -86,6 +86,7 @@ def sir(par, distr_pc, flow_pc, distr_pt, flow_pt, iterations, inf_pc):
             return res_pc, history_pc,res_pt, history_pt
         # N =  S + I + R
         
+        #print(min(Svec_pt))
         p_pc = (Ivec_pc + Ivec_pt) / (d_pc + d_pt) * par.R0 / par.DI
         p_pt =  Ivec_pt/d_pt * par.R0 / par.DI
         
@@ -115,6 +116,7 @@ def sir(par, distr_pc, flow_pc, distr_pt, flow_pt, iterations, inf_pc):
                + np.matmul(Rvec_pc.reshape(1,n), realOD_pc)/sumSIR_pc
                - Rvec_pc * realOD_pc.sum(axis=1)/sumSIR_pc
                 )
+        
         Svec_pt = Svec_pt.astype(float)
         
         Svec_pt = Svec_pt - newI_pt
@@ -142,7 +144,8 @@ def sir(par, distr_pc, flow_pc, distr_pt, flow_pt, iterations, inf_pc):
         Svec_pt = np.where(Svec_pt < 0, 0, Svec_pt) 
         Ivec_pt = np.where(Ivec_pt < 0, 0, Ivec_pt) 
         Rvec_pt = np.where(Rvec_pt < 0, 0, Rvec_pt) 
-        
+            
+           
         res_pc[iter + 1,:] = [Svec_pc.sum(), Ivec_pc.sum(), Rvec_pc.sum(), 0]
         eachIter_pc[iter + 1] = newI_pc.sum()
         res_pc[iter + 1, 3] = eachIter_pc[max(0, iter - par.HospiterIters) : iter].sum() * par.HospitalisationRate

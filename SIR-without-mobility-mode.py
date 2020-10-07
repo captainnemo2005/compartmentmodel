@@ -42,6 +42,9 @@ def sir(par, distr_pc, flow_pc, distr_pt, flow_pt, iterations, inf_pc):
     res_pt = np.zeros((iterations, 4))
     res_pt[0,:] = [Svec_pt.sum(), Ivec_pt.sum(), Rvec_pt.sum(), 0]
     realflow_pt = flow_pt.copy() # copy!
+    
+    newI_pc_rp = np.zeros((iterations,n))
+    newI_pt_rp = np.zeros((iterations,n))
 
     # The two lines below normalise the flows and then multiply them by the alpha values. 
     # This is actually the "wrong" the way to do it because alpha will not be a *linear* measure 
@@ -117,6 +120,7 @@ def sir(par, distr_pc, flow_pc, distr_pt, flow_pt, iterations, inf_pc):
         history_pt[iter + 1,1,:] = Ivec_pt
         history_pt[iter + 1,2,:] = Rvec_pt
         
-        
-    return res_pc, history_pc,res_pt, history_pt
+        newI_pc_rp[iter+1,:] = newI_pc
+        newI_pt_rp[iter+1,:] = newI_pt
+    return res_pc, history_pc,res_pt, history_pt,newI_pc_rp,newI_pt_rp
 
